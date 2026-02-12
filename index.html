@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Sheila Cheptoo 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Playfair+Display:ital@0;1&family=Pacifico&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #fdf6ec;
+      --blush: #f2c4ce;
+      --rose: #c9506a;
+      --deep-rose: #8b2d43;
+      --gold: #c9a96e;
+      --dark: #2a1a1f;
+      --petal: #f7dde3;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23c9506a' d='M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z'/%3E%3C/svg%3E"), auto;
+    }
+
+    /* ───── PETALS ───── */
+    .petal-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -60px;
+      width: 14px;
+      height: 18px;
+      background: radial-gradient(ellipse at 40% 30%, #f9c8d5, #e8889a80);
+      border-radius: 150% 0 150% 0;
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+    .petal:nth-child(odd) { border-radius: 0 150% 0 150%; background: radial-gradient(ellipse at 60% 30%, #fad4dc, #d9607780); }
+    @keyframes fall {
+      0%   { transform: translateX(0) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.9; }
+      80%  { opacity: 0.7; }
+      100% { transform: translateX(80px) rotate(360deg) translateY(110vh); opacity: 0; }
+    }
+
+    /* ───── SECTION BASE ───── */
+    section {
+      position: relative;
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      z-index: 1;
+    }
+
+    /* ───── SECTION 1 – TITLE ───── */
+    #opening {
+      background: linear-gradient(160deg, #fdf0f4 0%, #fce8ee 50%, #f5d0db 100%);
+    }
+    #opening::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 80%, #f2c4ce55, transparent),
+        radial-gradient(ellipse 50% 35% at 85% 15%, #fad4dc66, transparent);
+      pointer-events: none;
+    }
+    .opening-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      letter-spacing: 0.35em;
+      color: var(--rose);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .opening-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-style: italic;
+      color: var(--deep-rose);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.6s forwards;
+    }
+    .opening-name {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.2rem, 7vw, 5rem);
+      color: var(--rose);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+      text-shadow: 2px 4px 20px #f2c4ce99;
+    }
+    .scroll-hint {
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--rose);
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards, pulse 2s 2.5s infinite;
+    }
+    .heart-divider {
+      font-size: 1.6rem;
+      color: var(--rose);
+      margin: 1.5rem 0;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+
+    /* ───── SECTION 2 – REASONS ───── */
+    #reasons {
+      background: linear-gradient(170deg, #fdf4f7 0%, #fce8ee 100%);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--deep-rose);
+      margin-bottom: 3rem;
+    }
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 860px;
+      width: 100%;
+    }
+    .reason-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid #f2c4ce88;
+      border-radius: 16px;
+      padding: 1.8rem 1.4rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 24px #f2c4ce30;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .reason-card:hover {
+      transform: translateY(-6px) rotate(-0.5deg);
+      box-shadow: 0 12px 40px #c9506a22;
+    }
+    .reason-emoji { font-size: 2rem; margin-bottom: 0.8rem; }
+    .reason-card p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--dark);
+      font-style: italic;
+    }
+
+    /* ───── SECTION 3 – POEM ───── */
+    #poem {
+      background: linear-gradient(160deg, #2a1a1f 0%, #3d1f2a 50%, #4a2535 100%);
+      color: var(--cream);
+    }
+    #poem::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,80,106,0.15), transparent);
+    }
+    #poem .section-title { color: var(--blush); }
+    .poem-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.15rem, 3vw, 1.5rem);
+      line-height: 2.1;
+      color: #f5dde4;
+      max-width: 580px;
+    }
+    .poem-text span {
+      display: block;
+    }
+    .poem-author {
+      margin-top: 2rem;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem;
+      color: var(--rose);
+    }
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle ease-in-out infinite;
+    }
+
+    /* ───── SECTION 4 – THE QUESTION ───── */
+    #question {
+      background: linear-gradient(150deg, #fdf6ec 0%, #fce8ee 60%, #fad4dc 100%);
+      overflow: hidden;
+    }
+    .question-pre {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--rose);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .question-main {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      color: var(--deep-rose);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .question-name {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      color: var(--rose);
+      margin-bottom: 3rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .btn-yes {
+      padding: 1rem 3.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 30px #c9506a44;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 40px #c9506a66;
+    }
+    .btn-no {
+      padding: 0.85rem 2.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      background: transparent;
+      color: #aaa;
+      border: 1.5px solid #ddd;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: absolute;
+    }
+    .no-label {
+      font-size: 0.78rem;
+      color: #bbb;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* ───── SECTION 5 – YES! ───── */
+    #yes-screen {
+      display: none;
+      background: linear-gradient(145deg, #2a1a1f 0%, #3d1f2a 100%);
+      color: var(--cream);
+      z-index: 10;
+    }
+    #yes-screen.active { display: flex; }
+    .yes-hearts {
+      font-size: 4rem;
+      animation: heartBeat 1s ease-in-out infinite;
+      margin-bottom: 1.5rem;
+    }
+    .yes-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2.5rem, 8vw, 5.5rem);
+      color: var(--rose);
+      text-shadow: 0 0 60px #c9506a88;
+      margin-bottom: 1rem;
+    }
+    .yes-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      color: var(--blush);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+    .confetti-burst {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ───── ANIMATIONS ───── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50%       { opacity: 1; }
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.15); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50%       { opacity: 0.8; }
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ───── SCROLL REVEAL ───── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ───── FLOATING HEARTS BACKGROUND ───── */
+    .float-hearts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .fh {
+      position: absolute;
+      bottom: -40px;
+      font-size: 1.4rem;
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateX(0) scale(0.8); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateX(40px) scale(1.1) translateY(-110vh); opacity: 0; }
+    }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 500px) {
+      .reasons-grid { grid-template-columns: 1fr; }
+      .btn-group { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FALLING PETALS -->
+<div class="petal-canvas" id="petalCanvas"></div>
+
+<!-- ═══════════ SECTION 1: OPENING ═══════════ -->
+<section id="opening">
+  <div class="float-hearts" id="floatHearts1"></div>
+  <p class="opening-label">A love letter, especially for you</p>
+  <h1 class="opening-title">Happy Valentine's Day</h1>
+  <div class="opening-name">Sheila Cheptoo</div>
+  <div class="heart-divider">❤️</div>
+  <p class="scroll-hint">✦ scroll to continue ✦</p>
+</section>
+
+<!-- ═══════════ SECTION 2: REASONS ═══════════ -->
+<section id="reasons">
+  <h2 class="section-title reveal">Reasons I adore you…</h2>
+  <div class="reasons-grid">
+    <div class="reason-card reveal">
+      <div class="reason-emoji">✨</div>
+      <p>Your smile lights up every room you walk into, and it never fails to light up my world too.</p>
+    </div>
+    <div class="reason-card reveal">
+      <div class="reason-emoji">🌸</div>
+      <p>The way you laugh — completely, freely — is the most beautiful sound I know.</p>
+    </div>
+    <div class="reason-card reveal">
+      <div class="reason-emoji">🌙</div>
+      <p>You make ordinary moments feel like the most extraordinary memories worth keeping forever.</p>
+    </div>
+    <div class="reason-card reveal">
+      <div class="reason-emoji">💫</div>
+      <p>Your kindness is effortless. You love people in a way most could only aspire to.</p>
+    </div>
+    <div class="reason-card reveal">
+      <div class="reason-emoji">🌹</div>
+      <p>With you, every day feels like a story worth telling — one I never want to end.</p>
+    </div>
+    <div class="reason-card reveal">
+      <div class="reason-emoji">🦋</div>
+      <p>You are the reason I believe in beautiful things, Sheila. Simply and completely, you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 3: POEM ═══════════ -->
+<section id="poem">
+  <div class="stars" id="starField"></div>
+  <h2 class="section-title reveal">Written for you</h2>
+  <div class="poem-text reveal">
+    <span>In the quiet hours just before dawn,</span>
+    <span>when the world still holds its breath,</span>
+    <span>I find myself thinking of you —</span>
+    <span>&nbsp;</span>
+    <span>of the way your name sounds</span>
+    <span>like a song I was always meant to sing,</span>
+    <span>of the warmth you carry</span>
+    <span>like sunlight wrapped in a human heart.</span>
+    <span>&nbsp;</span>
+    <span>Sheila, you are my favourite story,</span>
+    <span>the one I want to keep re-reading,</span>
+    <span>the one that never grows old.</span>
+    <span>&nbsp;</span>
+    <span>Be my Valentine —</span>
+    <span>today, and every day after.</span>
+  </div>
+  <p class="poem-author reveal">— yours, with all of me ❤️</p>
+</section>
+
+<!-- ═══════════ SECTION 4: THE QUESTION ═══════════ -->
+<section id="question">
+  <div class="float-hearts" id="floatHearts2"></div>
+  <p class="question-pre reveal">And so, my darling…</p>
+  <h2 class="question-main reveal">Will you be my</h2>
+  <div class="question-name reveal">Valentine? 💌</div>
+
+  <div class="btn-group" id="btnGroup">
+    <button class="btn-yes" id="btnYes" onclick="handleYes()">Yes, of course! 💕</button>
+    <button class="btn-no"  id="btnNo">No...</button>
+  </div>
+  <p class="no-label" id="noLabel">Hint: the "No" button keeps running away 😏</p>
+</section>
+
+<!-- ═══════════ SECTION 5: YES CELEBRATION ═══════════ -->
+<section id="yes-screen">
+  <div class="yes-hearts" id="yesHeart">💖</div>
+  <h2 class="yes-title">She said YES!</h2>
+  <p class="yes-sub">I knew you would. Because what we have is too beautiful for any other answer.<br><br>Happy Valentine's Day, Sheila Cheptoo — the love of my life. 🌹</p>
+</section>
+
+<script>
+  /* ─── FALLING PETALS ─── */
+  const petalCanvas = document.getElementById('petalCanvas');
+  for (let i = 0; i < 26; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.width  = (10 + Math.random() * 10) + 'px';
+    p.style.height = (14 + Math.random() * 10) + 'px';
+    p.style.animationDuration  = (6 + Math.random() * 10) + 's';
+    p.style.animationDelay     = (Math.random() * 12) + 's';
+    p.style.opacity = 0;
+    petalCanvas.appendChild(p);
+  }
+
+  /* ─── FLOATING HEARTS ─── */
+  function addFloatHearts(containerId, count) {
+    const c = document.getElementById(containerId);
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('div');
+      h.className = 'fh';
+      h.textContent = ['❤️','🌸','💕','🌹','💗','✨'][Math.floor(Math.random()*6)];
+      h.style.left = Math.random() * 96 + 'vw';
+      h.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      h.style.animationDuration = (8 + Math.random() * 10) + 's';
+      h.style.animationDelay    = (Math.random() * 10) + 's';
+      c.appendChild(h);
+    }
+  }
+  addFloatHearts('floatHearts1', 20);
+  addFloatHearts('floatHearts2', 20);
+
+  /* ─── STAR FIELD ─── */
+  const starField = document.getElementById('starField');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top  = Math.random() * 100 + '%';
+    s.style.animationDuration = (2 + Math.random() * 4) + 's';
+    s.style.animationDelay    = (Math.random() * 5) + 's';
+    starField.appendChild(s);
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => obs.observe(r));
+
+  /* ─── NO BUTTON ESCAPE LOGIC ─── */
+  const btnNo    = document.getElementById('btnNo');
+  const btnGroup = document.getElementById('btnGroup');
+  const noLabel  = document.getElementById('noLabel');
+  let noClickCount = 0;
+
+  const noPhrases = [
+    "Nope, not today 😄",
+    "Nice try! 💨",
+    "Keep chasing… 🏃‍♀️",
+    "Almost got me! 😂",
+    "Catch me if you can! 🌸",
+    "My answer is still YES… for YOU! 🥰"
+  ];
+
+  function getRandomPos() {
+    const section = document.getElementById('question');
+    const secW = section.clientWidth;
+    const secH = section.clientHeight;
+    const btnW = btnNo.offsetWidth;
+    const btnH = btnNo.offsetHeight;
+
+    // Keep button within visible area of the section with padding
+    const padding = 60;
+    const x = padding + Math.random() * (secW - btnW - padding * 2);
+    const y = padding + Math.random() * (secH - btnH - padding * 2);
+    return { x, y };
+  }
+
+  function moveNoBtn() {
+    // Position the "No" button relative to the question section
+    const section = document.getElementById('question');
+    const rect = section.getBoundingClientRect();
+    const { x, y } = getRandomPos();
+
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = (rect.left + x) + 'px';
+    btnNo.style.top  = (rect.top  + y) + 'px';
+    btnNo.style.transition = 'left 0.25s cubic-bezier(.4,0,.2,1), top 0.25s cubic-bezier(.4,0,.2,1)';
+    noClickCount++;
+    if (noClickCount < noPhrases.length) {
+      btnNo.textContent = noPhrases[noClickCount];
+    }
+  }
+
+  // Initialize No button position
+  window.addEventListener('load', () => {
+    const section = document.getElementById('question');
+    const rect = section.getBoundingClientRect();
+    btnNo.style.position = 'fixed';
+    btnNo.style.left = (rect.left + section.clientWidth / 2 + 20) + 'px';
+    btnNo.style.top  = (rect.top  + section.clientHeight / 2)     + 'px';
+  });
+
+  // Move on hover (desktop)
+  btnNo.addEventListener('mouseenter', moveNoBtn);
+  // Also move on touch (mobile)
+  btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); moveNoBtn(); }, { passive: false });
+  // Even if somehow clicked, just move it
+  btnNo.addEventListener('click', moveNoBtn);
+
+  /* ─── YES HANDLER ─── */
+  function handleYes() {
+    // Hide question section, show yes screen
+    document.getElementById('question').style.display = 'none';
+    const yesScreen = document.getElementById('yes-screen');
+    yesScreen.classList.add('active');
+    yesScreen.scrollIntoView({ behavior: 'smooth' });
+
+    // Fix No button out of view
+    btnNo.style.display = 'none';
+
+    // Launch confetti
+    launchConfetti();
+    setInterval(launchConfetti, 2500);
+  }
+
+  /* ─── CONFETTI ─── */
+  function launchConfetti() {
+    const colors = ['#c9506a','#f2c4ce','#c9a96e','#fdf6ec','#8b2d43','#fad4dc'];
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.style.cssText = `
+        position: fixed;
+        left: ${Math.random() * 100}vw;
+        top: -20px;
+        width: ${6 + Math.random() * 8}px;
+        height: ${6 + Math.random() * 8}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        pointer-events: none;
+        z-index: 9999;
+        animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+        animation-delay: ${Math.random() * 1}s;
+      `;
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }
+  }
+
+  // Re-position No button on scroll & resize
+  function repositionNo() {
+    const section = document.getElementById('question');
+    if (!section) return;
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const { x, y } = getRandomPos();
+      btnNo.style.left = (rect.left + x) + 'px';
+      btnNo.style.top  = (rect.top  + y) + 'px';
+    }
+  }
+  window.addEventListener('scroll',  repositionNo);
+  window.addEventListener('resize',  repositionNo);
+</script>
+
+</body>
+</html>
