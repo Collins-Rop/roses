@@ -318,6 +318,77 @@
       pointer-events: none;
       z-index: 9999;
     }
+        /* ───── FLOATING PHOTOS ───── */
+#yes-screen {
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 4rem;
+}
+.photos-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 380px;
+  margin-top: 3rem;
+}
+.photo-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(calc(-50% + var(--x)), -50%) rotate(var(--rot)) scale(0) translateY(60px);
+  opacity: 0;
+  width: 180px;
+  background: white;
+  padding: 10px 10px 36px 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2);
+  border-radius: 3px;
+  transition: transform 0.7s cubic-bezier(.34,1.56,.64,1), opacity 0.6s ease;
+  transition-delay: var(--delay);
+  cursor: pointer;
+}
+.photo-frame.show {
+  transform: translate(calc(-50% + var(--x)), -50%) rotate(var(--rot)) scale(1) translateY(0px);
+  opacity: 1;
+}
+.photo-frame:hover {
+  transform: translate(calc(-50% + var(--x)), -50%) rotate(0deg) scale(1.12) translateY(-8px) !important;
+  z-index: 10;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transition-delay: 0s !important;
+}
+.photo-frame img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  border-radius: 1px;
+}
+.photo-caption {
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-family: 'Pacifico', cursive;
+  font-size: 0.7rem;
+  color: var(--deep-rose);
+  letter-spacing: 0.03em;
+}
+
+/* ───── RESPONSIVE PHOTOS ───── */
+@media (max-width: 600px) {
+  .photos-container { height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+  .photo-frame {
+    position: relative;
+    left: auto; top: auto;
+    transform: rotate(var(--rot)) scale(0) !important;
+    width: 140px;
+  }
+  .photo-frame.show {
+    transform: rotate(var(--rot)) scale(1) !important;
+  }
+  .photo-frame:hover {
+    transform: rotate(0deg) scale(1.1) !important;
+  }
+}
 
     /* ───── ANIMATIONS ───── */
     @keyframes fadeUp {
@@ -466,6 +537,30 @@
   <div class="yes-hearts" id="yesHeart">💖</div>
   <h2 class="yes-title">She said YES!</h2>
   <p class="yes-sub">I knew you would. Because what we have is too beautiful for any other answer.<br><br>Happy Valentine's Day, Sheila Cheptoo — the love of my life. 🌹</p>
+
+  <!-- FLOATING PHOTOS -->
+  <div class="photos-container" id="photosContainer">
+    <div class="photo-frame" style="--delay: 0s; --x: -280px; --rot: -6deg">
+      <img src="photos/photo1.jpg" alt="Us together" />
+      <span class="photo-caption">Us 💕</span>
+    </div>
+    <div class="photo-frame" style="--delay: 0.4s; --x: 0px; --rot: 3deg">
+      <img src="photos/photo2.jpg" alt="Us together" />
+      <span class="photo-caption">My favourite memory 🌸</span>
+    </div>
+    <div class="photo-frame" style="--delay: 0.8s; --x: 280px; --rot: -4deg">
+      <img src="photos/photo3.jpg" alt="Us together" />
+      <span class="photo-caption">Always you 🌹</span>
+    </div>
+    <div class="photo-frame" style="--delay: 1.2s; --x: -160px; --rot: 5deg">
+      <img src="photos/photo4.jpg" alt="Us together" />
+      <span class="photo-caption">My person 💖</span>
+    </div>
+    <div class="photo-frame" style="--delay: 1.6s; --x: 160px; --rot: -2deg">
+      <img src="photos/photo5.jpg" alt="Us together" />
+      <span class="photo-caption">Forever 🦋</span>
+    </div>
+  </div>
 </section>
 
 <script>
@@ -587,18 +682,21 @@
 
   /* ─── YES HANDLER ─── */
   function handleYes() {
-    // Hide question section, show yes screen
     document.getElementById('question').style.display = 'none';
     const yesScreen = document.getElementById('yes-screen');
     yesScreen.classList.add('active');
     yesScreen.scrollIntoView({ behavior: 'smooth' });
-
-    // Fix No button out of view
     btnNo.style.display = 'none';
 
-    // Launch confetti
     launchConfetti();
     setInterval(launchConfetti, 2500);
+
+    // Animate photos in with staggered delay
+    setTimeout(() => {
+        document.querySelectorAll('.photo-frame').forEach(frame => {
+        frame.classList.add('show');
+        });
+    }, 600);
   }
 
   /* ─── CONFETTI ─── */
